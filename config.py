@@ -1,4 +1,4 @@
-media_library_path = "/media/readdeo/ultrabay/Videos/"
+media_library_path = "/media/readdeo/maindata/Videos/"
 sync_latest_video_path = "/media/readdeo/maindata/SYNCH/LatestYoutube/"
 
 # channels = {"FarFromAverage":"https://www.youtube.com/channel/UC6Iaz96RkYE-MOjnq5NPgqw",

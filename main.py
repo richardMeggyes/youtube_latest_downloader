@@ -1,5 +1,5 @@
 from config import *
-import file_tools, subprocess, time, os
+import time, os, sys
 from channel import create_channel_list
 
 
@@ -24,25 +24,41 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=
 
 
 if __name__ == "__main__":
+    args = sys.argv
+
+    loop = False
+
+    if len(args) > 1:
+        if args[1] == "-l" or args[1] == "--loop":
+            loop = True
 
     channels = create_channel_list()
+    while True:
 
-    for channel in channels:
-        channel_storage_path = media_library_path + channel.name + "/"
-        channel_youtube_link = channel.url
+        for channel in channels:
+            channel_storage_path = media_library_path + channel.name + "/"
+            channel_youtube_link = channel.url
 
-        if not os.path.isdir(channel_storage_path):
-            os.mkdir(channel_storage_path)
+            if not os.path.isdir(channel_storage_path):
+                os.mkdir(channel_storage_path)
 
-        youtube_dl_command = ""
-        if channel.limit == 0:
-            youtube_dl_command = youtube_dl_link.format(channel.name, channel_storage_path, channel_youtube_link)
-        else:
-            youtube_dl_command = youtube_dl_link_limited.format(channel.limit, channel.name,
-                                                                channel_storage_path, channel_youtube_link)
+            youtube_dl_command = ""
+            if channel.limit == 0:
+                youtube_dl_command = youtube_dl_link.format(channel.name, channel_storage_path, channel_youtube_link)
+            else:
+                youtube_dl_command = youtube_dl_link_limited.format(channel.limit, channel.name,
+                                                                    channel_storage_path, channel_youtube_link)
 
-        os.system(youtube_dl_command)
+            # with open("commands.txt", "a+")as f:
+            #     f.write(youtube_dl_command + "\n")
 
-        file_tools.copy_3_latest_files(channel)
+            os.system(youtube_dl_command)
 
-    file_tools.remove_older_videos_from_sync()
+            # file_tools.copy_3_latest_files(channel)
+
+        # file_tools.remove_older_videos_from_sync()
+
+        if not loop:
+            break
+        print("Finished, waiting 30 minutes before downloading again")
+        time.sleep(1800)
