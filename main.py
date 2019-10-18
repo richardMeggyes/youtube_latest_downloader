@@ -44,10 +44,14 @@ if __name__ == "__main__":
 
             youtube_dl_command = ""
             if channel.limit == 0:
-                youtube_dl_command = youtube_dl_link.format(channel.name, channel_storage_path, channel_youtube_link)
+                youtube_dl_command = youtube_dl_link.format(channel.quality,
+                                                            channel.name,
+                                                            channel_storage_path,
+                                                            channel_youtube_link)
             else:
-                youtube_dl_command = youtube_dl_link_limited.format(channel.limit, channel.name,
-                                                                    channel_storage_path, channel_youtube_link)
+                pass
+                # youtube_dl_command = youtube_dl_link_limited.format(channel.limit, channel.name,
+                #                                                     channel_storage_path, channel_youtube_link)
 
             # with open("commands.txt", "a+")as f:
             #     f.write(youtube_dl_command + "\n")
