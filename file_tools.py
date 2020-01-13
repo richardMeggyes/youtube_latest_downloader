@@ -21,7 +21,6 @@ def copy_3_latest_files(channel):
         original_file_path = channel_storage_path + file
         new_file_path = sync_latest_video_path + channel.name + "_" + file
         if not os.path.isfile(new_file_path):
-            print("Copying file: " + file)
             copyfile(original_file_path, new_file_path)
 
 
